@@ -1,0 +1,13 @@
+{
+	"name"	 : "Haxe Project",
+	"target" : "python",
+	"source_dir" : ["src"],
+	"main"			: "epidev.BuildTool",
+	"out_dir"		: "bin",
+	"libraries" : {
+		"haxe"		: {
+			"curses":"*"
+		},
+		"target":{}
+	}
+}

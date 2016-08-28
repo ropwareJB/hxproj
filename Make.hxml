@@ -1,0 +1,4 @@
+-main epidev.BuildTool
+-lib epidev
+-cp src
+-python bin/buildtool.py
