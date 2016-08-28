@@ -4,6 +4,7 @@
 	"source_dir" : ["src"],
 	"main"			: "epidev.BuildTool",
 	"out_dir"		: "bin",
+	"out_bin"		: "haxeproj.py",
 	"libraries" : {
 		"haxe"		: {
 			"curses":"*"

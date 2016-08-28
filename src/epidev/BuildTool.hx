@@ -2,6 +2,7 @@ package epidev;
 
 import haxe.Json;
 import sys.io.File;
+import sys.io.Process;
 import epidev.cli.PrintHelper.*;
 
 @:enum abstract CONST(String) to String{
@@ -15,8 +16,6 @@ import epidev.cli.PrintHelper.*;
 @:final class BuildTool{
 	
 	public static function main(){
-		trace(epidev.macro.BuildNum.get());
-
 		if(Sys.args().length == 0) 
 			fatal("No arguments?");
 		
@@ -34,8 +33,19 @@ import epidev.cli.PrintHelper.*;
 		if(!sys.FileSystem.exists(path))
 			fatal('$DEFAULT_FILE doesn\'t exist.');
 
-		var json:String = File.getContent(path);
-		trace(json);
+		var proj:Dynamic = null;
+		try proj = Json.parse(File.getContent(path))
+		catch(e:Dynamic){
+			fatal("Project not valid JSON.");
+		}
+
+		var p = new Properties();
+		p.unpack(proj);
+
+		trace(p.name);
+		
+
+
 	}
 
 }
