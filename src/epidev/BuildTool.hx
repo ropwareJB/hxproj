@@ -1,7 +1,5 @@
 package epidev;
 
-import haxe.Json;
-import sys.io.File;
 import sys.io.Process;
 import epidev.cli.PrintHelper.*;
 
@@ -28,24 +26,17 @@ import epidev.cli.PrintHelper.*;
 		cmds.get(Sys.args()[0])();
 	}
 
-	public static function build():Void{
+	private static function getProperties():Properties{
 		var path:String = '${Sys.getCwd()}/$DEFAULT_FILE';
 		if(!sys.FileSystem.exists(path))
 			fatal('$DEFAULT_FILE doesn\'t exist.');
+		return new Properties(path);
+	}
 
-		var proj:Dynamic = null;
-		try proj = Json.parse(File.getContent(path))
-		catch(e:Dynamic){
-			fatal("Project not valid JSON.");
-		}
-
-		var p = new Properties();
-		p.unpack(proj);
-
-		trace(p.name);
-		
-
-
+	public static function build():Void{
+		var b = new Builder(getProperties());
+		var cmd:Array<String> = b.buildCmd();
+		printGood(cmd.join(" "));
 	}
 
 }

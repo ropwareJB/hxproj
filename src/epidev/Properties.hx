@@ -1,27 +1,35 @@
 package epidev;
 
 import haxe.Json;
+import sys.io.File;
 import epidev.cli.PrintHelper.*;
+import epidev.Target;
 
 @:final class Properties{
 
-	private var name:String;
-	private var target:String;
-	private var source_dir:Array<String>;
-	private var main:String;
-	private var out_dir:String;
-	private var out_bin:String;
-	private var libraries_haxe:Map<String,String>;
-	private var libraries_reg:Map<String,String>;
+	public var name:String;
+	public var target:Target;
+	public var sources:Array<String>;
+	public var main:String;
+	public var out_dir:String;
+	public var out_bin:String;
+	public var libraries_haxe:Map<String,String>;
+	public var libraries_reg:Map<String,String>;
 
-	public function new(){
+	public function new(path:String){
+		try {
+			var proj = Json.parse(File.getContent(path));
+			unpack(proj);
+		}catch(e:Dynamic){
+			fatal("Project not valid JSON.");
+		}
 	}
 	
-	public function unpack(j:Json):Void{
+	private function unpack(j:Dynamic):Void{
 		try{
 			name = j.name;
 			target = j.target;
-			source_dir = j.source_dir;
+			sources = j.sources;
 			main = j.main;
 			out_dir = j.out_dir;
 			out_bin = j.out_bin;
@@ -29,16 +37,25 @@ import epidev.cli.PrintHelper.*;
 			libraries_reg = j.libraries.target;
 		}catch(e:Dynamic){
 			fatal("Malformed source json");
-			return false;
 		}
-		return true;
+		validateTarget();
 	}
 
-	public function createBuild():Array<String>{
-		return [
-			'-$target',
-			''
-		];
+	private function validateTarget():Void{
+		switch(target){
+			case JS: fatal('Target $target not supported.');
+			case LUA: fatal('Target $target not supported.');
+			case SWF: fatal('Target $target not supported.');
+			case AS3: fatal('Target $target not supported.');
+			case NEKO: fatal('Target $target not supported.');
+			case PHP: fatal('Target $target not supported.');
+			case CPP: fatal('Target $target not supported.');
+			case CPPIA: fatal('Target $target not supported.');
+			case CS: fatal('Target $target not supported.');
+			case JAVA: fatal('Target $target not supported.');
+			case PYTHON: return;
+			default: fatal('Target \'${target}\' invalid.');
+		}
 	}
 
 }

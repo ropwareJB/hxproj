@@ -1,24 +1,54 @@
 package epidev;
 
+import sys.FileSystem;
+
 @:final class Builder{
 
+	private var props:Properties;
 
-  -js <file> : compile code to JavaScript file
-  -lua <file> : compile code to Lua file
-  -swf <file> : compile code to Flash SWF file
-  -neko <file> : compile code to Neko Binary
-  -cppia <file> : generate Cppia code into target file
-  -python <file> : generate Python code as target file
+	public function new(p:Properties){
+		this.props = p;
+	}
 
-  -as3 <directory> : generate AS3 code into target directory
-  -php <directory> : generate PHP code into target directory
-  -cpp <directory> : generate C++ code into target directory
-  -cs <directory> : generate C# code into target directory
-  -java <directory> : generate Java code into target directory
+	public function buildCmd():Array<String>{
+		var cmds = ['haxe', '-main'];
+		cmds.push(props.main);
 
+		cmds.push('-${props.target}');
+		if(targetRequiresDir()){
+			var outdir = '${props.out_dir}/${props.target}';
+			if(!FileSystem.exists(outdir))
+				FileSystem.createDirectory(outdir);
+			cmds.push(outdir);
+		}else{
+			cmds.push('${props.out_dir}/${props.out_bin}');
+		}
 
-	public function buildOut():Array<String>{
+		for(cp in props.sources) 
+			cmds = cmds.concat(["-cp", cp]);
+
+		for(lib in Reflect.fields(props.libraries_haxe)){
+			var r = Reflect.field(props.libraries_haxe, lib);
+			cmds = cmds.concat(["-lib", '$lib:$r']);
+		}
 		
+		return cmds;
+	}
+
+	private function targetRequiresDir():Bool{
+		switch(props.target){
+			case JS:   return false;
+			case LUA:  return false;
+			case SWF:  return false;
+			case AS3:  return true;
+			case NEKO: return false;
+			case PHP:  return true;
+			case CPP:  return true;
+			case CPPIA:return false;
+			case CS:	 return true;
+			case JAVA: return true;
+			case PYTHON: return false;
+		}
 	}
 	
 }
