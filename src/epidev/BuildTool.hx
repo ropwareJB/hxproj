@@ -8,6 +8,7 @@ import epidev.cli.PrintHelper.*;
 }
 @:enum abstract COMMAND(String) from String{
 	var BUILD = "build";
+	var CMD = "cmd";
 }
 
 @:build(epidev.macro.BuildNum.build())
@@ -18,7 +19,8 @@ import epidev.cli.PrintHelper.*;
 			fatal("No arguments?");
 		
 		var cmds:Map<COMMAND,Void->Void> = [
-			BUILD => build
+			BUILD => build,
+			CMD => buildCmd
 		];
 		if(!cmds.exists(Sys.args()[0]))
 			fatal("Command doesn't exist");
@@ -33,10 +35,21 @@ import epidev.cli.PrintHelper.*;
 		return new Properties(path);
 	}
 
-	public static function build():Void{
-		var b = new Builder(getProperties());
+	private static function build():Void{
+		var ps:Properties = getProperties();
+		var b = new Builder(ps);
 		var cmd:Array<String> = b.buildCmd();
 		printGood(cmd.join(" "));
+		// execute cmd
+		
+		if(TargetDetails.targetRequiresDir(ps))
+			FileSystem.rename(TargetDetails.getDefaultOutput(ps), ps.out_bin)
+	}
+
+	private static function buildCmd():Void{
+		var b = new Builder(getProperties());
+		var cmd:Array<String> = b.buildCmd();
+		println_(cmd.join(" "));
 	}
 
 }
