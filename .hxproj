@@ -2,15 +2,16 @@
 	"name"	 : "Haxe Project",
 	"target" : "python",
 	"sources" : ["src"],
-	"flags" : ["win=1"],
+	"flags" : [],
 	"main"			: "epidev.BuildTool",
 	"out_dir"		: "bin",
 	"out_bin"		: "haxeproj.py",
 	"libraries" : {
 		"haxe"		: {
-			"curses":"*"
+			"epidev":"*"
 		},
 		"target"  : {
 		}
-	}
+	},
+	"prepend":""
 }

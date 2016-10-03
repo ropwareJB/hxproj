@@ -14,6 +14,7 @@ import epidev.Target;
 	public var main:String;
 	public var out_dir:String;
 	public var out_bin:String;
+	public var prepend:String;
 	public var libraries_haxe:Map<String,String>;
 	public var libraries_reg:Map<String,String>;
 
@@ -35,6 +36,7 @@ import epidev.Target;
 			main = j.main;
 			out_dir = j.out_dir;
 			out_bin = j.out_bin;
+			prepend = j.prepend;
 			libraries_haxe = j.libraries.haxe;
 			libraries_reg = j.libraries.target;
 		}catch(e:Dynamic){

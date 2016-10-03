@@ -1,13 +1,12 @@
 package epidev;
 
-import sys.io.Process;
 import epidev.cli.PrintHelper.*;
 
 @:enum abstract CONST(String) to String{
-	var DEFAULT_FILE = "haxeproj.json";
+	var DEFAULT_FILE = ".hxproj";
 }
 @:enum abstract COMMAND(String) from String{
-	var BUILD = "build";
+	var BUILD = "make";
 	var CMD = "cmd";
 }
 
@@ -35,21 +34,7 @@ import epidev.cli.PrintHelper.*;
 		return new Properties(path);
 	}
 
-	private static function build():Void{
-		var ps:Properties = getProperties();
-		var b = new Builder(ps);
-		var cmd:Array<String> = b.buildCmd();
-		printGood(cmd.join(" "));
-		// execute cmd
-		
-		if(TargetDetails.targetRequiresDir(ps))
-			FileSystem.rename(TargetDetails.getDefaultOutput(ps), ps.out_bin)
-	}
-
-	private static function buildCmd():Void{
-		var b = new Builder(getProperties());
-		var cmd:Array<String> = b.buildCmd();
-		println_(cmd.join(" "));
-	}
+	private static function build()			(new Builder(getProperties())).build();
+	private static function buildCmd()	(new Builder(getProperties())).echoBuildCmd();
 
 }

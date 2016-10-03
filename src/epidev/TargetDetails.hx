@@ -17,5 +17,16 @@ package epidev;
 			case PYTHON: return false;
 		}
 	}
+
+	public static function getDefaultOutput(ps:Properties):String{
+		switch(ps.target){
+			case AS3:  throw "Not yet supported";
+			case PHP:  throw "Not yet supported";
+			case CPP:  throw "Not yet supported";
+			case CS:	 throw "Not yet supported";
+			case JAVA: return "Main.jar";
+			default: throw "No default binary name";
+		}
+	}
 	
 }
