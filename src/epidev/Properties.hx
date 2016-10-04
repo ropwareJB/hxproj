@@ -37,8 +37,8 @@ import epidev.Target;
 			out_dir = j.out_dir;
 			out_bin = j.out_bin;
 			prepend = j.prepend;
-			libraries_haxe = j.libraries.haxe;
-			libraries_reg = j.libraries.target;
+			libraries_haxe = [ for(lib in Reflect.fields(j.libraries_haxe)) lib => Reflect.field(j.libraries_haxe, lib) ];
+			libraries_reg = [ for(lib in Reflect.fields(j.libraries_target)) lib => Reflect.field(j.libraries_target, lib) ];
 		}catch(e:Dynamic){
 			fatal("Malformed source json");
 		}
@@ -60,6 +60,10 @@ import epidev.Target;
 			case PYTHON: return;
 			default: fatal('Target \'${target}\' invalid.');
 		}
+	}
+
+	public function save():Void{
+		File.saveContent('serialized.json', Json.stringify(this));
 	}
 
 }

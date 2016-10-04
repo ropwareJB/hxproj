@@ -30,8 +30,8 @@ import epidev.cli.PrintHelper.*;
 		for(cp in props.sources) 
 			cmds = cmds.concat(["-cp", cp]);
 
-		for(lib in Reflect.fields(props.libraries_haxe)){
-			var r = ':${Reflect.field(props.libraries_haxe, lib)}';
+		for(lib in props.libraries_haxe.keys()){
+			var r = ':${props.libraries_haxe.get(lib)}';
 			if(r == ":*") r = "";
 			cmds = cmds.concat(["-lib", '$lib$r']);
 		}

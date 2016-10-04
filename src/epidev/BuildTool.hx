@@ -8,6 +8,7 @@ import epidev.cli.PrintHelper.*;
 @:enum abstract COMMAND(String) from String{
 	var BUILD = "make";
 	var CMD = "cmd";
+	var DEPENDS = "depends";
 }
 
 @:build(epidev.macro.BuildNum.build())
@@ -19,7 +20,8 @@ import epidev.cli.PrintHelper.*;
 		
 		var cmds:Map<COMMAND,Void->Void> = [
 			BUILD => build,
-			CMD => buildCmd
+			CMD => buildCmd,
+			DEPENDS => addLibrary
 		];
 		if(!cmds.exists(Sys.args()[0]))
 			fatal("Command doesn't exist");
@@ -36,5 +38,9 @@ import epidev.cli.PrintHelper.*;
 
 	private static function build()			(new Builder(getProperties())).build();
 	private static function buildCmd()	(new Builder(getProperties())).echoBuildCmd();
+	private static function addLibrary()	{
+		var libs = new LibraryManager(getProperties());
+		libs.addLibraries(Sys.args().slice(1));
+	}
 
 }
