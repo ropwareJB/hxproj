@@ -2,13 +2,13 @@ package epidev;
 
 import epidev.cli.PrintHelper.*;
 
-@:enum abstract CONST(String) to String{
+@:enum private abstract CONST(String) to String{
 	var DEFAULT_FILE = ".hxproj";
 }
-@:enum abstract COMMAND(String) from String{
+@:enum private abstract COMMAND(String) from String{
 	var BUILD = "make";
 	var CMD = "cmd";
-	var DEPENDS = "depends";
+	var LIBRARY = "lib";
 }
 
 @:build(epidev.macro.BuildNum.build())
@@ -21,7 +21,7 @@ import epidev.cli.PrintHelper.*;
 		var cmds:Map<COMMAND,Void->Void> = [
 			BUILD => build,
 			CMD => buildCmd,
-			DEPENDS => addLibrary
+			LIBRARY => library
 		];
 		if(!cmds.exists(Sys.args()[0]))
 			fatal("Command doesn't exist");
@@ -38,9 +38,6 @@ import epidev.cli.PrintHelper.*;
 
 	private static function build()			(new Builder(getProperties())).build();
 	private static function buildCmd()	(new Builder(getProperties())).echoBuildCmd();
-	private static function addLibrary()	{
-		var libs = new LibraryManager(getProperties());
-		libs.addLibraries(Sys.args().slice(1));
-	}
+	private static function library() (new LibraryManager(getProperties())).handle(Sys.args().slice(1));
 
 }

@@ -6,11 +6,17 @@ The build tool operates at a Project-Target level. You create a new 'project' wi
 #### Usage
 ```
 hb project <Projectname> [-t <JS|LUA|SWF|AS3|NEKO|PHP|CPP|CPPIA|CS|JAVA|PYTHON>]
-hb depends <Library>[:version]
-hb install
-hb update
+hb lib add <Lib[:Version]>
+hb lib remove <Library>
+hb lib list
+hb lib install
+hb lib update
 hb make
 ```
+
+#### Features
++ Haxelib integration
++ Output Prepend
 
 #### Inspiration
 *Snowkit Flow* - The original great build tool that I used, but had some gripes with. I have a personal disdain for nodejs so I decided to make one to fit my own needs. For Haxe, in Haxe. There are several editor plugins available for it, most notably [For Atom](https://github.com/snowkit/atom-flow), and [Vaxe for Vim](https://github.com/jdonaldson/vaxe).   
@@ -18,8 +24,6 @@ hb make
 
 #### Future Development
 + Neovim + Vim Pluins
-+ Haxelib library integration
-+ Prepend to output (to include custom headers)
 + {JS,CPP,JAVA,CS} Targets
 + Project Skeletons
 
