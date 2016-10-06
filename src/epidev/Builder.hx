@@ -61,11 +61,18 @@ import epidev.cli.PrintHelper.*;
 		if(TargetDetails.targetRequiresDir(props))
 			FileSystem.rename(TargetDetails.getDefaultOutput(props), props.out_bin);
 
+		var fpbin:String = '${props.binFullpath()}/${props.out_bin}';
 		if(props.prepend != null && props.prepend.length > 0){
-			var ppc = File.getContent(props.prepend);
-			var cc = File.getContent(props.out_bin);
-			File.saveContent(props.out_bin, ppc+cc);
+			var cc = File.getContent(fpbin);
+			File.saveContent(fpbin, props.prepend+cc);
 		}
+		if(props.prependFile != null && props.prependFile.length > 0){
+			var ppc = File.getContent(props.prependFile);
+			var cc = File.getContent(fpbin);
+			File.saveContent(fpbin, ppc+cc);
+		}
+
+		new Process("chmod", ["+x", fpbin]);
 	}
 
 }

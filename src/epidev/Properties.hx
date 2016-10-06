@@ -19,6 +19,7 @@ import epidev.BuildTool;
 	public var out_dir:String;
 	public var out_bin:String;
 	public var prepend:String;
+	public var prependFile:String;
 	public var libraries_haxe:Map<String,String>;
 	public var libraries_reg:Map<String,String>;
 
@@ -43,6 +44,7 @@ import epidev.BuildTool;
 			out_dir = j.out_dir;
 			out_bin = j.out_bin;
 			prepend = j.prepend;
+			prependFile = j.prependFile;
 			libraries_haxe = [ for(lib in Reflect.fields(j.libraries_haxe)) lib => Reflect.field(j.libraries_haxe, lib) ];
 			libraries_reg = [ for(lib in Reflect.fields(j.libraries_target)) lib => Reflect.field(j.libraries_target, lib) ];
 		}catch(e:Dynamic){
@@ -72,6 +74,9 @@ import epidev.BuildTool;
 		File.saveContent(projFilePath(), Json.stringify(this));
 	}
 
+	public function binFullpath():String{
+		return '$_path/$out_dir';
+	}
 	private function projFilePath() return '$_path/$_filename';
 
 }
