@@ -14,7 +14,7 @@ import epidev.cli.PrintHelper.*;
 	}
 
 	public function buildCmd():Array<String>{
-		var cmds = ['-main', props.main];
+		var cmds = ['--cwd', props._path,'-main', props.main];
 
 		cmds.push('-${props.target}');
 		if(TargetDetails.targetRequiresDir(props)){

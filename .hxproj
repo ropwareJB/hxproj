@@ -1,17 +1,1 @@
-{
-	"name"	 : "Haxe Project",
-	"target" : "python",
-	"sources" : ["src"],
-	"flags" : [],
-	"main"			: "epidev.BuildTool",
-	"out_dir"		: "bin",
-	"out_bin"		: "haxeproj.py",
-	"libraries" : {
-		"haxe"		: {
-			"epidev":"*"
-		},
-		"target"  : {
-		}
-	},
-	"prepend":""
-}
+{"_path":"/home/mcarlo/dev/haxe-build-tool","_filename":".hxproj","name":"Haxe Project","target":"python","sources":["src"],"flags":[],"main":"epidev.BuildTool","out_dir":"bin","out_bin":"haxeproj.py","prepend":"","libraries_haxe":{"epidev":"*"},"libraries_reg":{}}

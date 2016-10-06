@@ -4,8 +4,12 @@ import haxe.Json;
 import sys.io.File;
 import epidev.cli.PrintHelper.*;
 import epidev.Target;
+import epidev.BuildTool;
 
 @:final class Properties{
+
+	public var _path(default,null):String;
+	public var _filename(default,null):String;
 
 	public var name:String;
 	public var target:Target;
@@ -18,9 +22,11 @@ import epidev.Target;
 	public var libraries_haxe:Map<String,String>;
 	public var libraries_reg:Map<String,String>;
 
-	public function new(path:String){
+	public function new(path:String, fn:String){
 		try {
-			var proj = Json.parse(File.getContent(path));
+			this._path = path;
+			this._filename = fn;
+			var proj = Json.parse(File.getContent(projFilePath()));
 			unpack(proj);
 		}catch(e:Dynamic){
 			fatal("Project not valid JSON.");
@@ -63,7 +69,9 @@ import epidev.Target;
 	}
 
 	public function save():Void{
-		File.saveContent('serialized.json', Json.stringify(this));
+		File.saveContent(projFilePath(), Json.stringify(this));
 	}
+
+	private function projFilePath() return '$_path/$_filename';
 
 }

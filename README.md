@@ -17,6 +17,7 @@ hb make
 #### Features
 + Haxelib integration
 + Output Prepend
++ Project Manipulation in any subdirectory
 
 #### Inspiration
 *Snowkit Flow* - The original great build tool that I used, but had some gripes with. I have a personal disdain for nodejs so I decided to make one to fit my own needs. For Haxe, in Haxe. There are several editor plugins available for it, most notably [For Atom](https://github.com/snowkit/atom-flow), and [Vaxe for Vim](https://github.com/jdonaldson/vaxe).   
@@ -26,6 +27,7 @@ hb make
 + Neovim + Vim Pluins
 + {JS,CPP,JAVA,CS} Targets
 + Project Skeletons
++ Multiple targets
 
 #### Supported Targets
 This project is still in it's infant stages, so only a couple of targets are usable currently.
