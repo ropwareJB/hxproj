@@ -8,22 +8,25 @@ import epidev.BuildTool;
 
 @:final class Properties{
 
-	public var _path(default,null):String;
-	public var _filename(default,null):String;
+	public var _path:String;
+	public var _filename:String;
 
 	public var name:String;
 	public var target:Target;
-	public var sources:Array<String>;
-	public var flags:Array<String>;
-	public var main:String;
-	public var out_dir:String;
-	public var out_bin:String;
+	public var sources:Array<String> = [];
+	public var flags:Array<String> = [];
+	public var main:String = "Main";
+	public var out_dir:String = "bin";
+	public var out_bin:String = "Main";
 	public var prepend:String;
 	public var prependFile:String;
-	public var libraries_haxe:Map<String,String>;
-	public var libraries_reg:Map<String,String>;
+	public var libraries_haxe:Map<String,String> = new Map<String,String>();
+	public var libraries_reg:Map<String,String> = new Map<String,String>();
 
-	public function new(path:String, fn:String){
+	public function new(){
+	}
+
+	public function loadFile(path:String, fn:String):Properties{
 		try {
 			this._path = path;
 			this._filename = fn;
@@ -32,6 +35,17 @@ import epidev.BuildTool;
 		}catch(e:Dynamic){
 			fatal("Project not valid JSON.");
 		}
+		return this;
+	}
+
+	public static function create(name:String, target:Target):Properties{
+		var p = new Properties();
+		p.target = target;
+		p.name = name;
+		p.out_bin = name;
+		p._path = ".";
+		p._filename = DEFAULT_FILE;
+		return p;
 	}
 	
 	private function unpack(j:Dynamic):Void{

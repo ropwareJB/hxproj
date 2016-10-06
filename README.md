@@ -5,7 +5,8 @@ The build tool operates at a Project-Target level. You create a new 'project' wi
 
 #### Usage
 ```
-hb project <Projectname> [-t <JS|LUA|SWF|AS3|NEKO|PHP|CPP|CPPIA|CS|JAVA|PYTHON>]
+hb create <Projectname> <js|lua|swf|as3|neko|php|cpp|cppia|cs|java|python>]
+hb init <Projectname> <js|lua|swf|as3|neko|php|cpp|cppia|cs|java|python>]
 hb lib add <Lib[:Version]>
 hb lib remove <Library>
 hb lib list
@@ -28,6 +29,9 @@ hb make
 + {JS,CPP,JAVA,CS} Targets
 + Project Skeletons
 + Multiple targets
+
+#### Vaxe Integration
+To get integration with Vaxe (so `:make` will run `hb make` and other goodies), use [this fork](https://github.com/Montycarlo/vaxe) of Vaxe. Additions are minimal. Add `let g:vaxe_hxproj=1` to your `.vimrc` or `init.vim` file.
 
 #### Supported Targets
 This project is still in it's infant stages, so support is minimal.

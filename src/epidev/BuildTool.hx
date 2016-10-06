@@ -1,11 +1,13 @@
 package epidev;
 
+import sys.FileSystem;
 import epidev.cli.PrintHelper.*;
 
 @:enum abstract STRCONST(String) to String{
 	var DEFAULT_FILE = ".hxproj";
 }
 @:enum private abstract COMMAND(String) from String{
+	var CREATE = "create";
 	var INIT = "init";
 	var BUILD = "make";
 	var CMD = "cmd";
@@ -36,7 +38,8 @@ import epidev.cli.PrintHelper.*;
 
 	private static function checkInit():Void{
 		var cmds:Map<COMMAND, Void->Void> = [
-			INIT => init,
+			CREATE => create,
+			INIT => init
 		];
 		var arg:String = Sys.args()[0];
 		if(!cmds.exists(arg)) return;
@@ -66,10 +69,29 @@ import epidev.cli.PrintHelper.*;
 	private static function getProperties(cwd:String):Null<Properties>{
 		var path:String = '$cwd/$DEFAULT_FILE';
 		if(!sys.FileSystem.exists(path)) return null;
-		return new Properties(cwd, DEFAULT_FILE);
+		var ps = new Properties();
+		return ps.loadFile(cwd, DEFAULT_FILE);
+	}
+
+	private static function create():Void{
+		var args = Sys.args();
+		if(args.length < 3) fatal("Usage: hb create <name> <target>");
+		var name:String = args[1];
+		FileSystem.createDirectory(name);
+		var ps = Properties.create(name, args[2]);
+		ps._path = name;
+		ps.sources.push("src");
+		ps.out_dir = "bin";
+		ps.save();
+		FileSystem.createDirectory('$name/bin');
+		FileSystem.createDirectory('$name/src');
 	}
 
 	private static function init():Void{
+		var args = Sys.args();
+		if(args.length < 3) fatal("Usage: hb init <name> <target>");
+		var ps = Properties.create(args[1], args[2]);
+		ps.save();
 	}
 
 	private static function build(props:Properties)			(new Builder(props)).build();
