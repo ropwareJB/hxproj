@@ -1,6 +1,7 @@
 package epidev;
 
 import sys.FileSystem;
+import sys.io.File;
 import epidev.cli.PrintHelper.*;
 
 @:enum abstract STRCONST(String) to String{
@@ -85,6 +86,7 @@ import epidev.cli.PrintHelper.*;
 		ps.save();
 		FileSystem.createDirectory('$name/bin');
 		FileSystem.createDirectory('$name/src');
+		deployTemplates(name);
 	}
 
 	private static function init():Void{
@@ -92,6 +94,18 @@ import epidev.cli.PrintHelper.*;
 		if(args.length < 3) fatal("Usage: hb init <name> <target>");
 		var ps = Properties.create(args[1], args[2]);
 		ps.save();
+	}
+
+	private static function deployTemplates(name:String):Void{
+    var readme_t = haxe.Resource.getString("Readme_t");
+		var template = new haxe.Template(readme_t);
+    var output = template.execute({name:name});
+		File.saveContent('$name/Readme.md', output);
+
+    readme_t = haxe.Resource.getString("Main_t");
+		template = new haxe.Template(readme_t);
+    output = template.execute({classname:"Main"});
+		File.saveContent('$name/src/Main.hx', output);
 	}
 
 	private static function build(props:Properties)			(new Builder(props)).build();
