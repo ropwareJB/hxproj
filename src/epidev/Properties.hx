@@ -20,6 +20,7 @@ import epidev.BuildTool;
 	public var out_bin:String = "Main";
 	public var prepend:String;
 	public var prependFile:String;
+	public var resources:Map<String,String> = new Map<String,String>();
 	public var libraries_haxe:Map<String,String> = new Map<String,String>();
 	public var libraries_reg:Map<String,String> = new Map<String,String>();
 
@@ -59,6 +60,7 @@ import epidev.BuildTool;
 			out_bin = j.out_bin;
 			prepend = j.prepend;
 			prependFile = j.prependFile;
+			resources = [ for(res in Reflect.fields(j.resources)) res => Reflect.field(j.resources, res) ];
 			libraries_haxe = [ for(lib in Reflect.fields(j.libraries_haxe)) lib => Reflect.field(j.libraries_haxe, lib) ];
 			libraries_reg = [ for(lib in Reflect.fields(j.libraries_target)) lib => Reflect.field(j.libraries_target, lib) ];
 		}catch(e:Dynamic){
@@ -75,7 +77,7 @@ import epidev.BuildTool;
 			case AS3: fatal('Target $target not supported.');
 			case NEKO: fatal('Target $target not supported.');
 			case PHP: fatal('Target $target not supported.');
-			case CPP: fatal('Target $target not supported.');
+			case CPP: return;
 			case CPPIA: fatal('Target $target not supported.');
 			case CS: fatal('Target $target not supported.');
 			case JAVA: fatal('Target $target not supported.');

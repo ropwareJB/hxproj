@@ -22,7 +22,7 @@ package epidev;
 		switch(ps.target){
 			case AS3:  throw "Not yet supported";
 			case PHP:  throw "Not yet supported";
-			case CPP:  throw "Not yet supported";
+			case CPP:  return '${ps.target}/Main';
 			case CS:	 throw "Not yet supported";
 			case JAVA: return "Main.jar";
 			default: throw "No default binary name";

@@ -38,6 +38,9 @@ import epidev.cli.PrintHelper.*;
 
 		for(flag in props.flags) 
 			cmds = cmds.concat(["-D", flag]);
+
+		for(res in props.resources.keys())
+			cmds = cmds.concat(["-resource", '${props.resources.get(res)}@$res']);
 		
 		return cmds;
 	}
@@ -59,7 +62,7 @@ import epidev.cli.PrintHelper.*;
 		}
 		
 		if(TargetDetails.targetRequiresDir(props))
-			FileSystem.rename(TargetDetails.getDefaultOutput(props), props.out_bin);
+			FileSystem.rename('${props.out_dir}/'+TargetDetails.getDefaultOutput(props), '${props.out_dir}/${props.out_bin}');
 
 		var fpbin:String = '${props.binFullpath()}/${props.out_bin}';
 		if(props.prepend != null && props.prepend.length > 0){
