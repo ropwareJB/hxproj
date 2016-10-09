@@ -1,1 +1,4 @@
-{"_path":"/home/mcarlo/dev/haxe-build-tool","_filename":".hxproj","name":"Haxe Project","target":"python","sources":["src"],"flags":[],"main":"epidev.BuildTool","out_dir":"bin","out_bin":"hb","prepend":"#!/bin/python3\n","prependFile":"","libraries_haxe":{"epidev":"*"},"libraries_reg":{}}
+{"_path":"/home/mcarlo/dev/haxe-build-tool","_filename":".hxproj","name":"Haxe Project","target":"python","sources":["src"],"flags":[],"main":"epidev.BuildTool","out_dir":"bin","out_bin":"hb","prepend":"#!/bin/python3\n","prependFile":"","resources":{
+	"Readme_t":"./templates/Readme.md",
+	"Main_t":"./templates/Main.hx"
+},"libraries_haxe":{"epidev":"*"},"libraries_reg":{}}

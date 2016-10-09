@@ -75,7 +75,7 @@ import epidev.BuildTool;
 			case LUA: fatal('Target $target not supported.');
 			case SWF: fatal('Target $target not supported.');
 			case AS3: fatal('Target $target not supported.');
-			case NEKO: fatal('Target $target not supported.');
+			case NEKO: return;
 			case PHP: fatal('Target $target not supported.');
 			case CPP: return;
 			case CPPIA: fatal('Target $target not supported.');

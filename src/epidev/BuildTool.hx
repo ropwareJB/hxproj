@@ -83,6 +83,7 @@ import epidev.cli.PrintHelper.*;
 		ps._path = name;
 		ps.sources.push("src");
 		ps.out_dir = "bin";
+		TargetDetails.onCreate(ps);
 		ps.save();
 		FileSystem.createDirectory('$name/bin');
 		FileSystem.createDirectory('$name/src');
@@ -93,6 +94,7 @@ import epidev.cli.PrintHelper.*;
 		var args = Sys.args();
 		if(args.length < 3) fatal("Usage: hb init <name> <target>");
 		var ps = Properties.create(args[1], args[2]);
+		TargetDetails.onCreate(ps);
 		ps.save();
 	}
 

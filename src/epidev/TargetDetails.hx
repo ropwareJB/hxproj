@@ -28,5 +28,21 @@ package epidev;
 			default: throw "No default binary name";
 		}
 	}
+
+	public static function onCreate(ps:Properties):Void{
+		var maps:Map<Target, Properties->Void> = [
+			NEKO => onCreateNeko,
+			PYTHON => onCreatePython
+		];
+		if(maps.exists(ps.target)) maps.get(ps.target)(ps);
+	}
+
+	private static function onCreateNeko(ps:Properties):Void{
+		ps.out_bin = '${ps.out_bin}.n';
+	}
+
+	private static function onCreatePython(ps:Properties):Void{
+		ps.prepend = "#!/bin/python3\n";
+	}
 	
 }
