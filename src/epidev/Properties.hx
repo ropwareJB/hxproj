@@ -76,7 +76,7 @@ import epidev.BuildTool;
 			case SWF: fatal('Target $target not supported.');
 			case AS3: fatal('Target $target not supported.');
 			case NEKO: return;
-			case PHP: fatal('Target $target not supported.');
+			case PHP: return;
 			case CPP: return;
 			case CPPIA: fatal('Target $target not supported.');
 			case CS: fatal('Target $target not supported.');

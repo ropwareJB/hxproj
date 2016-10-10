@@ -26,7 +26,7 @@ hb make
 [Snowkit Flow Homepage](https://snowkit.github.io/flow/) | [Github](https://github.com/snowkit/flow)  
 
 #### Future Development
-+ {JS,CPP,JAVA,CS} Targets
++ {JS,JAVA,CS} Targets
 + Project Skeletons
 + Multiple targets
 
@@ -42,6 +42,6 @@ This project is still in it's infant stages, so support is minimal.
 | LUA | false | JAVA | false |
 | SWF | false | CS | false |
 | AS3 | false | CPPIA | false |
-| NEKO | false | CPP | false |
-| PHP | false | | |
+| NEKO | true | CPP | true |
+| PHP | true | | |
 
