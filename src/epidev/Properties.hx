@@ -80,7 +80,7 @@ import epidev.BuildTool;
 			case CPP: return;
 			case CPPIA: fatal('Target $target not supported.');
 			case CS: fatal('Target $target not supported.');
-			case JAVA: fatal('Target $target not supported.');
+			case JAVA: return;
 			case PYTHON: return;
 			default: fatal('Target \'${target}\' invalid.');
 		}
