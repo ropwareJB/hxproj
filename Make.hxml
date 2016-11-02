@@ -1,6 +1,1 @@
--main epidev.BuildTool
--lib epidev
--cp src
--resource ./templates/Readme.md@Readme_t
--resource ./templates/Main.hx@Main_t
--python bin/buildtool.py
+-main epidev.BuildTool -cpp bin/cpp -cp src -lib epidev -resource ./templates/Main.hx@Main_t -resource ./templates/Readme.md@Readme_t
