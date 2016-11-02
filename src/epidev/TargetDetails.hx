@@ -19,10 +19,12 @@ package epidev;
 	}
 
 	public static function getDefaultOutput(ps:Properties):String{
+		var main = ps.main.split(".");
+		var mainName = main[main.length-1];
 		switch(ps.target){
 			case AS3:  throw "Not yet supported";
 			case PHP:  return '${ps.target}/index.php';
-			case CPP:  return '${ps.target}/Main';
+			case CPP:  return '${ps.target}/$mainName';
 			case CS:	 throw "Not yet supported";
 			case JAVA: return "Main.jar";
 			default: throw "No default binary name";

@@ -3,11 +3,12 @@ package epidev;
 import sys.FileSystem;
 import sys.io.File;
 import epidev.cli.PrintHelper.*;
+import epidev.cli.CliParams;
 
 @:enum abstract STRCONST(String) to String{
 	var DEFAULT_FILE = ".hxproj";
 }
-@:enum private abstract COMMAND(String) from String{
+@:enum private abstract COMMAND(String) to String{
 	var CREATE = "create";
 	var INIT = "init";
 	var BUILD = "make";
@@ -17,35 +18,22 @@ import epidev.cli.PrintHelper.*;
 
 @:build(epidev.macro.BuildNum.build())
 @:final class BuildTool{
+
+	private static var cli_create = new CliCommand({long:CREATE});
+	private static var cli_init = new CliCommand({long:INIT});
+	private static var cli_make = new CliCommand({long:BUILD});
+	private static var cli_cmd = new CliCommand({long:CMD});
+	private static var cli_lib = new CliCommand({long:LIBRARY});
 	
 	public static function main(){
-		if(Sys.args().length == 0) 
-			fatal("No arguments?");
-
-		checkInit();
-
-		var ps:Properties = locateProps();
-
-		var cmds:Map<COMMAND, Properties->Void> = [
-			BUILD => build,
-			CMD => buildCmd,
-			LIBRARY => library
-		];
-		if(!cmds.exists(Sys.args()[0]))
-			fatal("Command doesn't exist");
-
-		cmds.get(Sys.args()[0])(ps);
-	}
-
-	private static function checkInit():Void{
-		var cmds:Map<COMMAND, Void->Void> = [
-			CREATE => create,
-			INIT => init
-		];
-		var arg:String = Sys.args()[0];
-		if(!cmds.exists(arg)) return;
-		cmds.get(arg)();
-		Sys.exit(0);
+		var cli = new CliParams([cli_create, cli_init, cli_make, cli_cmd, cli_lib]);
+		cli.process([
+			new CliEntryPoint([cli_create]) => create,
+			new CliEntryPoint([cli_init]) => init,
+			new CliEntryPoint([cli_make]) => build,
+			new CliEntryPoint([cli_cmd]) => buildCmd,
+			new CliEntryPoint([cli_lib]) => library,
+		]);
 	}
 
 	private static function locateProps():Properties{
@@ -110,8 +98,17 @@ import epidev.cli.PrintHelper.*;
 		File.saveContent('$name/src/Main.hx', output);
 	}
 
-	private static function build(props:Properties)			(new Builder(props)).build();
-	private static function buildCmd(props:Properties)	(new Builder(props)).echoBuildCmd();
-	private static function library(props:Properties)   (new LibraryManager(props)).handle(Sys.args().slice(1));
+	private static function build(){
+		var props:Properties = locateProps();
+		(new Builder(props)).build();
+	}
+	private static function buildCmd(){
+		var props:Properties = locateProps();
+		(new Builder(props)).echoBuildCmd();
+	}
+	private static function library(){
+		var props:Properties = locateProps();
+		(new LibraryManager(props)).handle(Sys.args().slice(1));
+	}
 
 }
