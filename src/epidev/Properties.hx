@@ -87,7 +87,7 @@ import epidev.BuildTool;
 	}
 
 	public function save():Void{
-		File.saveContent(projFilePath(), Json.stringify(this));
+		File.saveContent(projFilePath(), Json.stringify(this, null, "  "));
 	}
 
 	public function binFullpath():String{

@@ -8,22 +8,15 @@ import epidev.cli.CliParams;
 @:enum abstract STRCONST(String) to String{
 	var DEFAULT_FILE = ".hxproj";
 }
-@:enum private abstract COMMAND(String) to String{
-	var CREATE = "create";
-	var INIT = "init";
-	var BUILD = "make";
-	var CMD = "cmd";
-	var LIBRARY = "lib";
-}
 
 @:build(epidev.macro.BuildNum.build())
 @:final class BuildTool{
 
-	private static var cli_create = new CliCommand({long:CREATE});
-	private static var cli_init = new CliCommand({long:INIT});
-	private static var cli_make = new CliCommand({long:BUILD});
-	private static var cli_cmd = new CliCommand({long:CMD});
-	private static var cli_lib = new CliCommand({long:LIBRARY});
+	private static var cli_create = new CliCommand({long:"create"});
+	private static var cli_init = new CliCommand({long:"init"});
+	private static var cli_make = new CliCommand({long:"make"});
+	private static var cli_cmd = new CliCommand({long:"cmd"});
+	private static var cli_lib = new CliCommand({long:"lib"});
 	
 	public static function main(){
 		var cli = new CliParams([cli_create, cli_init, cli_make, cli_cmd, cli_lib]);
