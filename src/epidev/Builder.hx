@@ -4,6 +4,7 @@ import sys.FileSystem;
 import sys.io.Process;
 import sys.io.File;
 import epidev.cli.PrintHelper.*;
+import epidev.Properties;
 
 @:final class Builder{
 
@@ -13,8 +14,8 @@ import epidev.cli.PrintHelper.*;
 		this.props = p;
 	}
 
-	public function buildCmd():Array<String>{
-		var cmds = ['--cwd', props._path,'-main', props.main];
+	public function buildCmd(props:SolutionProps):Array<String>{
+		var cmds = ['--cwd', this.props._path,'-main', props.main];
 
 		cmds.push('-${props.target}');
 		if(TargetDetails.targetRequiresDir(props)){
@@ -46,11 +47,13 @@ import epidev.cli.PrintHelper.*;
 	}
 
 	public function echoBuildCmd():Void{
-		println_(buildCmd().join(" "));
+		var props = this.props.merge();
+		println_(buildCmd(props).join(" "));
 	}
 
 	public function build():Void{
-		var cmd:Array<String> = buildCmd();
+		var props = this.props.merge();
+		var cmd:Array<String> = buildCmd(props);
 
 		printGood_("haxe "+cmd.join(" "));
 		var p = new Process("haxe", cmd);
@@ -64,7 +67,7 @@ import epidev.cli.PrintHelper.*;
 		if(TargetDetails.targetRequiresDir(props))
 			FileSystem.rename('${props.out_dir}/'+TargetDetails.getDefaultOutput(props), '${props.out_dir}/${props.out_bin}');
 
-		var fpbin:String = '${props.binFullpath()}/${props.out_bin}';
+		var fpbin:String = '${this.props.binFullpath(props)}/${props.out_bin}';
 		if(props.prepend != null && props.prepend.length > 0){
 			var cc = File.getContent(fpbin);
 			File.saveContent(fpbin, props.prepend+cc);

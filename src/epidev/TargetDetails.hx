@@ -1,8 +1,10 @@
 package epidev;
 
+import epidev.Properties;
+
 @:final class TargetDetails{
 
-	public static function targetRequiresDir(ps:Properties):Bool{
+	public static function targetRequiresDir(ps:SolutionProps):Bool{
 		switch(ps.target){
 			case JS:   return false;
 			case LUA:  return false;
@@ -18,7 +20,7 @@ package epidev;
 		}
 	}
 
-	public static function getDefaultOutput(ps:Properties):String{
+	public static function getDefaultOutput(ps:SolutionProps):String{
 		var main = ps.main.split(".");
 		var mainName = main[main.length-1];
 		switch(ps.target){
@@ -31,8 +33,8 @@ package epidev;
 		}
 	}
 
-	public static function onCreate(ps:Properties):Void{
-		var maps:Map<Target, Properties->Void> = [
+	public static function onCreate(ps:SolutionProps):Void{
+		var maps:Map<Target, SolutionProps->Void> = [
 			PHP => onCreatePHP,
 			NEKO => onCreateNeko,
 			PYTHON => onCreatePython
@@ -40,15 +42,15 @@ package epidev;
 		if(maps.exists(ps.target)) maps.get(ps.target)(ps);
 	}
 
-	private static function onCreatePHP(ps:Properties):Void{
+	private static function onCreatePHP(ps:SolutionProps):Void{
 		ps.out_bin = '${ps.target}/index.php';
 	}
 
-	private static function onCreateNeko(ps:Properties):Void{
+	private static function onCreateNeko(ps:SolutionProps):Void{
 		ps.out_bin = '${ps.out_bin}.n';
 	}
 
-	private static function onCreatePython(ps:Properties):Void{
+	private static function onCreatePython(ps:SolutionProps):Void{
 		ps.prepend = "#!/bin/python3\n";
 	}
 	

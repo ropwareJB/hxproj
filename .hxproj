@@ -1,23 +1,32 @@
 {
   "_path": "/home/mcarlo/dev/hxproj/",
   "_filename": ".hxproj",
-  "name": "Haxe Project",
-  "target": "cpp",
-  "sources": [
-    "src"
-  ],
-  "flags": [],
-  "main": "epidev.BuildTool",
-  "out_dir": "bin",
-  "out_bin": "hb",
-  "prepend": "",
-  "prependFile": "",
-  "resources": {
-    "Main_t": "./templates/Main.hx",
-    "Readme_t": "./templates/Readme.md"
-  },
-  "libraries_haxe": {
-    "epidev": "*"
-  },
-  "libraries_reg": {}
+	"common":{
+		"name": "Haxe Project",
+		"sources": [
+			"src"
+		],
+		"flags": [],
+		"prepend": "",
+		"prependFile": "",
+		"resources": {
+			"Main_t": "./templates/Main.hx",
+			"Readme_t": "./templates/Readme.md"
+		},
+		"libraries_haxe": {
+			"epidev": "*"
+		},
+		"libraries_reg": {}
+	},
+	"solutions": {
+		"main" : {
+			"target": "cpp",
+			"out_dir": "bin",
+			"out_bin": "hb",
+			"main": "epidev.BuildTool",
+			"flags": [],
+			"sources": []
+			
+		}
+	}
 }
