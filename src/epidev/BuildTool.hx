@@ -88,11 +88,11 @@ import epidev.cli.CliParams;
 
 	private static function build(){
 		var props:Properties = locateProps();
-		(new Builder(props)).build();
+		(new Builder(props)).build(Sys.args().slice(1));
 	}
 	private static function buildCmd(){
 		var props:Properties = locateProps();
-		(new Builder(props)).echoBuildCmd();
+		(new Builder(props)).echoBuildCmd(Sys.args().slice(1));
 	}
 	private static function library(){
 		var props:Properties = locateProps();

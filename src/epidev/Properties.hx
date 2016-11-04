@@ -73,8 +73,10 @@ class CommonProps{
 	public function new(){
 	}
 
-	public function merge(){
-		var sol = solutions.get(solutions.keys().next());
+	public function merge(name:String){
+		var sol = solutions.get(name);
+		if(sol == null) fatal('Solution \'$name\' doesn\'t exist.');
+
 		sol.merge(common);
 		return sol;
 	}

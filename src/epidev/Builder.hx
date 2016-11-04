@@ -46,13 +46,31 @@ import epidev.Properties;
 		return cmds;
 	}
 
-	public function echoBuildCmd():Void{
-		var props = this.props.merge();
-		println_(buildCmd(props).join(" "));
+	private function getBuildNames(names:Array<String>):Array<String>{
+		if(names.length == 0){
+			var keys = [for(k in props.solutions.keys()) k];
+			if(keys.length != 1){
+				fatal("Multiple solutions defined. No name passed to build command.");
+			}
+			names = [props.solutions.keys().next()];
+		}
+		return names;
 	}
 
-	public function build():Void{
-		var props = this.props.merge();
+	public function echoBuildCmd(names:Array<String>):Void{
+		names = getBuildNames(names);
+		for(name in names){
+			var props = this.props.merge(name);
+			println_(buildCmd(props).join(" "));
+		}
+	}
+
+	public function build(names:Array<String>):Void{
+		names = getBuildNames(names);
+		for(name in names) build_(name);
+	}
+	private function build_(name:String):Void{
+		var props = this.props.merge(name);
 		var cmd:Array<String> = buildCmd(props);
 
 		printGood_("haxe "+cmd.join(" "));
