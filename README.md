@@ -27,7 +27,7 @@ hb make [<solution>] [<solution>] ...
 [Snowkit Flow Homepage](https://snowkit.github.io/flow/) | [Github](https://github.com/snowkit/flow)  
 
 #### Future Development
-+ {JS,JAVA,CS} Targets
++ {JAVA,CS} Targets
 + Project Skeletons
 
 #### Vaxe Integration
@@ -38,7 +38,7 @@ This project is still in it's infant stages, so support is minimal.
 
 | Target | Supported | Target | Supported |
 | ------ | --------- | ------ | --------- |
-| JS | false | PYTHON | true |
+| JS | true | PYTHON | true |
 | LUA | false | JAVA | false |
 | SWF | false | CS | false |
 | AS3 | false | CPPIA | false |

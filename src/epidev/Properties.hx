@@ -125,7 +125,7 @@ class CommonProps{
 		for(f in solutions.keys()){
 			var target = solutions.get(f).target;
 			switch(target){
-				case JS: fatal('Target $target not supported.');
+				case JS: continue;
 				case LUA: fatal('Target $target not supported.');
 				case SWF: fatal('Target $target not supported.');
 				case AS3: fatal('Target $target not supported.');
