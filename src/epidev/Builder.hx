@@ -19,12 +19,12 @@ import epidev.Properties;
 
 		cmds.push('-${props.target}');
 		if(TargetDetails.targetRequiresDir(props)){
-			var outdir = '${props.out_dir}/${props.target}';
+			var outdir = '${this.props._path}/${props.out_dir}/${props.target}';
 			if(!FileSystem.exists(outdir))
 				FileSystem.createDirectory(outdir);
 			cmds.push(outdir);
 		}else{
-			var dir = props.out_dir == "" ? "" : '${props.out_dir}/';
+			var dir = props.out_dir == "" ? "" : '${this.props._path}/${props.out_dir}/';
 			cmds.push('$dir${props.out_bin}');
 		}
 
@@ -82,8 +82,11 @@ import epidev.Properties;
 			return;
 		}
 		
-		if(TargetDetails.targetRequiresDir(props))
-			FileSystem.rename('${props.out_dir}/'+TargetDetails.getDefaultOutput(props), '${props.out_dir}/${props.out_bin}');
+		if(TargetDetails.targetRequiresDir(props)){
+      var source = '${this.props._path}/${props.out_dir}/'+TargetDetails.getDefaultOutput(props);
+      var dest = '${this.props._path}/${props.out_dir}/${props.out_bin}';
+			FileSystem.rename(source, dest);
+    }
 
 		var fpbin:String = '${this.props.binFullpath(props)}/${props.out_bin}';
 		if(props.prepend != null && props.prepend.length > 0){
