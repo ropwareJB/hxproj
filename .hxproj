@@ -14,8 +14,6 @@
       "Readme_t": "./templates/Readme.md"
     },
     "libraries_haxe": {
-      "epidev": "*",
-      "curses": "*"
     },
     "libraries_reg": {}
   },

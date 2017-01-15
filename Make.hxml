@@ -1,1 +1,1 @@
--main epidev.BuildTool -cpp bin/cpp -cp src -lib epidev -resource ./templates/Main.hx@Main_t -resource ./templates/Readme.md@Readme_t
+-main epidev.BuildTool -cpp bin/cpp -cp src -resource ./templates/Main.hx@Main_t -resource ./templates/Readme.md@Readme_t
