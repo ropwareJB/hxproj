@@ -78,7 +78,7 @@ import epidev.cli.CliParams;
     var readme_t = haxe.Resource.getString("Readme_t");
 		var template = new haxe.Template(readme_t);
     var output = template.execute({name:name});
-		File.saveContent('$name/Readme.md', output);
+		File.saveContent('$name/README.md', output);
 
     readme_t = haxe.Resource.getString("Main_t");
 		template = new haxe.Template(readme_t);

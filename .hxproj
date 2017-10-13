@@ -11,7 +11,7 @@
     "prependFile": "",
     "resources": {
       "Main_t": "./templates/Main.hx",
-      "Readme_t": "./templates/Readme.md"
+      "Readme_t": "./templates/README.md"
     },
     "libraries_haxe": {
     },
