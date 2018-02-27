@@ -3,6 +3,15 @@
 
 The build tool operates at a Project-Target level. You create a new 'project' with it, specify what targets you intend to export to, what haxelib libraries it uses (optional version numbers). Then you can run `hb make` and it'll generate the hxml for your project and pass it off to the Haxe compiler.
 
+### Installation
+
+```
+haxelib git hb
+cd /usr/share/haxe/lib/hb/git/
+haxe Make.hxml
+ln -s /usr/share/haxe/lib/hb/git/bin/BuildTool /usr/bin/hb
+```
+
 #### Usage
 ```
 hb create <Projectname> <js|lua|swf|as3|neko|php|cpp|cppia|cs|java|python>]
